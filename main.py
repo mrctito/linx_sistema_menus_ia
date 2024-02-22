@@ -18,10 +18,13 @@ def test():
       print("Comando:"+result["text"])
 
 
-def obtem_comando_menu(texto: str) -> str:
+def obtem_comando_menu(texto_usuario: str) -> str:
   prompt = prepara_prompt()
   llm = prepara_llm(prompt)
   result = llm.invoke({"texto": texto_usuario, "tabela": TABELA_COMANDOS_STR})
   print("Comando:"+result["text"])
   return result["text"]
+
+
+test()
    
