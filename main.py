@@ -17,9 +17,9 @@ def test():
   while True:
       print("\n")
       texto_usuario = input("Digite o comando desejado: ")
-      #result = obtem_comando.run(texto=texto_usuario, tabela=TABELA_COMANDOS_STR)
-      result = llm.invoke({"texto": texto_usuario, "tabela": TABELA_COMANDOS_STR})
-      print("Comando:"+result["text"])
+      usuario_input = UsuarioInput(texto_usuario=texto_usuario)
+      result = obtem_comando_menu(usuario_input)
+      print(result)
 
 
 class UsuarioInput(BaseModel):
@@ -34,8 +34,8 @@ def obtem_comando_menu(usuario_input: UsuarioInput) -> str:
 
   
 if __name__ == "__main__":
-  #test()
-  uvicorn.run("main:app", host="0.0.0.0", port=8106)
+  test()
+  #uvicorn.run("main:app", host="0.0.0.0", port=8106)
 
 
 # para testar
