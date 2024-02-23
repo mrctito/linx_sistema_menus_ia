@@ -17,6 +17,8 @@ def test():
   while True:
       print("\n")
       texto_usuario = input("Digite o comando desejado: ")
+      if texto_usuario == ".":
+        break
       usuario_input = UsuarioInput(texto_usuario=texto_usuario)
       result = obtem_comando_menu(usuario_input)
       print(result)
