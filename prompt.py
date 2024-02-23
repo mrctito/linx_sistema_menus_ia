@@ -59,6 +59,13 @@ TABELA_COMANDOS_EMPORIO = [
 
 TABELA_COMANDOS_EMPORIO_STR = json.dumps(TABELA_COMANDOS_EMPORIO)
 
+'''
+PARA OUTROS SISTEMAS, ADICIONE AQUI AS TABELAS DE COMANDOS
+TABELA_COMANDOS_AUTOSYSTEM_STR = json.dumps(TABELA_COMANDOS_AUTOSYSTEM)
+TABELA_COMANDOS_XPTO_STR = json.dumps(TABELA_COMANDOS_XPTO)
+'''
+
+
 PROMPT_BASE = """
 Com base na tabela de mapeamento de comandos e códigos de um sistema de gestão de estoque, 
 informada abaixo entre os marcadores [INICIO] e [FIM], analise a seguinte entrada de usuário para 
