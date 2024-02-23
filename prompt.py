@@ -54,6 +54,11 @@ TABELA_COMANDOS_EMPORIO = [
     "command": "analisar tendências de estoque",
     "description": "Analisar padrões e tendências no movimento de estoque",
     "code": "CMD1000010"
+  },
+  {
+    "command": "criar pedido de compra",
+    "description": "Criar um novo pedido de compra",
+    "code": "CMD1000011"
   }
 ]
 
@@ -66,7 +71,7 @@ TABELA_COMANDOS_XPTO_STR = json.dumps(TABELA_COMANDOS_XPTO)
 '''
 
 
-PROMPT_BASE = """
+PROMPT_BASE = """   
 Com base na tabela de mapeamento de comandos e códigos de um sistema de gestão de estoque, 
 informada abaixo entre os marcadores [INICIO] e [FIM], analise a seguinte entrada de usuário para 
 determinar a ação desejada e forneça o código de comando correspondente. Use a descrição e o comando 
