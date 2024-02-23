@@ -19,19 +19,28 @@ def test():
       texto_usuario = input("Digite o comando desejado: ")
       if texto_usuario == ".":
         break
-      usuario_input = UsuarioInput(texto_usuario=texto_usuario)
+
+      usuario_input = UsuarioInput(codigo_sistema="EMPORIO", texto_usuario=texto_usuario)
       result = obtem_comando_menu(usuario_input)
       print(result)
 
 
 class UsuarioInput(BaseModel):
+  codigo_sistema: str
   texto_usuario: str
 
 @app.post("/obtem_comando_menu/")
 def obtem_comando_menu(usuario_input: UsuarioInput) -> str:
   prompt = prepara_prompt()
   llm = prepara_llm(prompt)
-  result = llm.invoke({"texto": usuario_input, "tabela": TABELA_COMANDOS_STR})
+
+  tabela = ""
+  if usuario_input.codigo_sistema == "EMPORIO":
+    tabela = TABELA_COMANDOS_STR
+  else:
+    return "0"
+
+  result = llm.invoke({"texto": usuario_input, "tabela": tabela})
   return result["text"]
 
   
@@ -53,3 +62,10 @@ if __name__ == "__main__":
 # para testar
 # curl -X "POST" "http://localhost:8106/obtem_comando_menu/" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"texto_usuario\": \"novo produto\"}"
 
+
+
+"""
+1- No programa principal, criar um campo de texto para o usuário digitar o comando desejado.
+2- Chamar a API que traduz o comando do usuario em um código de menu.
+3- Escrever um "case" ou "ifs aninhados" para cada código de menu, que chama a função do sistema correspondente.
+"""
