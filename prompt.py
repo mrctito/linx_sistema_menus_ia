@@ -4,7 +4,7 @@ from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 
-TABELA_COMANDOS = [
+TABELA_COMANDOS_EMPORIO = [
   {
     "command": "cadastrar novo produto",
     "description": "Adicionar um novo produto ao inventário",
@@ -57,7 +57,7 @@ TABELA_COMANDOS = [
   }
 ]
 
-TABELA_COMANDOS_STR = json.dumps(TABELA_COMANDOS)
+TABELA_COMANDOS_EMPORIO_STR = json.dumps(TABELA_COMANDOS_EMPORIO)
 
 PROMPT_BASE = """
 Com base na tabela de mapeamento de comandos e códigos de um sistema de gestão de estoque, 
