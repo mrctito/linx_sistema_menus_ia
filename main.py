@@ -34,9 +34,19 @@ def obtem_comando_menu(usuario_input: UsuarioInput) -> str:
 
   
 if __name__ == "__main__":
-  test()
-  #uvicorn.run("main:app", host="0.0.0.0", port=8106)
-
+  modo_teste = os.getenv("MODO_TESTE", "N")
+  if modo_teste == "S":
+    test()
+  else:
+    print()
+    print("Iniciando servidor...")
+    print()
+    print("Acesse http://localhost:8106/docs para Swagger")
+    print()
+    print("Para testar, use o comando abaixo")
+    print('curl -X "POST" "http://localhost:8106/obtem_comando_menu/" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"texto_usuario\": \"novo produto\"}"')
+    print()
+    uvicorn.run("main:app", host="0.0.0.0", port=8106)
 
 # para testar
 # curl -X "POST" "http://localhost:8106/obtem_comando_menu/" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"texto_usuario\": \"novo produto\"}"
