@@ -23,14 +23,13 @@ def test():
 
 
 class UsuarioInput(BaseModel):
-    texto_usuario: str
+  texto_usuario: str
 
 @app.post("/obtem_comando_menu/")
 def obtem_comando_menu(usuario_input: UsuarioInput) -> str:
   prompt = prepara_prompt()
   llm = prepara_llm(prompt)
   result = llm.invoke({"texto": usuario_input, "tabela": TABELA_COMANDOS_STR})
-  print("Comando:"+result["text"])
   return result["text"]
 
   
