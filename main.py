@@ -6,7 +6,7 @@ from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 import uvicorn
-from llm import prepara_llm, prepara_llm_azure
+from llm import cria_llm, prepara_llm, prepara_llm_azure
 from prompt import TABELA_COMANDOS_STR, prepara_prompt
 
 app = FastAPI()
@@ -35,11 +35,7 @@ class UsuarioInput(BaseModel):
 def obtem_comando_menu(usuario_input: UsuarioInput) -> str:
   prompt = prepara_prompt()
 
-  # cria LLMChain nativo OpenAI ou Azure
-  if os.getenv("USE_AZURE", "N") == "S":
-    llm = prepara_llm_azure(prompt)
-  else:
-    llm = prepara_llm(prompt)
+  llm = cria_llm(prompt, verbose=True)
 
   # decide qual tabela de comandos usar
   tabela = ""
