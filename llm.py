@@ -5,12 +5,12 @@ from langchain.prompts import PromptTemplate, BasePromptTemplate
 from langchain.chains import LLMChain
 
 
-def cria_llm_openai(prompt: PromptTemplate, verbose: bool = False):
-    llm = ChatOpenAI(temperature=0, verbose=verbose)
+def cria_llm_openai(verbose: bool = False):
+    llm = ChatOpenAI(temperature=0, verbose=verbose, model=os.getenv("MODEL_NAME"))
     return llm
 
 
-def cria_llm_azure(prompt: PromptTemplate, verbose: bool = False):
+def cria_llm_azure(verbose: bool = False):
     AZURE_DEPLOYMENT_NAME = os.getenv("AZURE_DEPLOYMENT_NAME")
     AZURE_OPENAI_API_VERSION = os.getenv("AZURE_OPENAI_API_VERSION")
     AZURE_OPENAI_API_BASE = os.getenv("AZURE_OPENAI_API_BASE")
@@ -29,11 +29,11 @@ def cria_llm_azure(prompt: PromptTemplate, verbose: bool = False):
     return llm
 
 
-def cria_llm(prompt: PromptTemplate, verbose: bool = False):
+def cria_llm(verbose: bool = False):
     if os.getenv("USE_AZURE", "N") == "S":
-        llm = cria_llm_azure(prompt, verbose=verbose)
+        llm = cria_llm_azure(verbose=verbose)
     else:
-        llm = cria_llm_openai(prompt, verbose=verbose)
+        llm = cria_llm_openai(verbose=verbose)
     return llm
 
 

@@ -6,15 +6,15 @@ from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 import uvicorn
-from llm import cria_llm, prepara_llm, prepara_llm_azure
-from prompt import TABELA_COMANDOS_STR, prepara_prompt
+from llm import cria_chain, cria_llm
+from prompt import TABELA_COMANDOS_EMPORIO_STR, prepara_prompt
 
 app = FastAPI()
 
 # rotina para testar o serviço
 def test():
   prompt = prepara_prompt()
-  llm = prepara_llm(prompt)
+  llm = cria_chain(prompt)
   while True:
       print("\n")
       texto_usuario = input("Digite o comando desejado: ")
@@ -35,17 +35,17 @@ class UsuarioInput(BaseModel):
 def obtem_comando_menu(usuario_input: UsuarioInput) -> str:
   prompt = prepara_prompt()
 
-  llm = cria_llm(prompt, verbose=True)
+  chain = cria_chain(prompt, verbose=True)
 
   # decide qual tabela de comandos usar
   tabela = ""
   if usuario_input.codigo_sistema == "EMPORIO":
-    tabela = TABELA_COMANDOS_STR
+    tabela = TABELA_COMANDOS_EMPORIO_STR
   else:
     return "0"
 
   # chama a API que traduz o comando do usuario em um código de menu
-  result = llm.invoke({"texto": usuario_input, "tabela": tabela})
+  result = chain.invoke({"texto": usuario_input, "tabela": tabela})
   return result["text"]
 
   
