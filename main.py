@@ -14,7 +14,7 @@ app = FastAPI()
 # rotina para testar o serviço
 
 
-def test():
+def teste():
     prompt = prepara_prompt()
     llm = cria_chain(prompt)
     while True:
@@ -36,7 +36,6 @@ class UsuarioInput(BaseModel):
 # serviço que recebe um comando do usuário e retorna o código de menu correspondente
 
 
-@app.post("/obtem_comando_menu/")
 def obtem_comando_menu(usuario_input: UsuarioInput) -> str:
     prompt = prepara_prompt()
 
@@ -54,26 +53,7 @@ def obtem_comando_menu(usuario_input: UsuarioInput) -> str:
 
 
 if __name__ == "__main__":
-
-    modo_teste = os.getenv("MODO_TESTE", "N")
-    if modo_teste == "S":
-        # se modo teste ativo, então roda test()
-        test()
-    else:
-        # senão coloca o serviço no ar
-        print()
-        print("Iniciando servidor...")
-        print()
-        print("Acesse http://localhost:8106/docs para Swagger")
-        print()
-        print("Para testar, use o comando abaixo")
-        print(
-            'curl -X "POST" "http://localhost:8106/obtem_comando_menu/" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"texto_usuario\": \"novo produto\"}"')
-        print()
-        uvicorn.run("main:app", host="0.0.0.0", port=8106)
-
-# para testar
-# curl -X "POST" "http://localhost:8106/obtem_comando_menu/" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"texto_usuario\": \"novo produto\"}"
+    teste()
 
 
 """
