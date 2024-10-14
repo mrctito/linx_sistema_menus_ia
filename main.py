@@ -21,32 +21,18 @@ def teste():
         if texto_usuario == ".":
             break
 
-        usuario_input = UsuarioInput(
-            codigo_sistema="EMPORIO", texto_usuario=texto_usuario)
-
         # PRINCIPAL
-        result = obtem_comando_menu(usuario_input)
+        result = obtem_comando_menu(texto_usuario)
         print(result)
 
 
-class UsuarioInput(BaseModel):
-    codigo_sistema: str
-    texto_usuario: str
-
-# serviço que recebe um comando do usuário e retorna o código de menu correspondente
-
-
-def obtem_comando_menu(usuario_input: UsuarioInput) -> str:
+def obtem_comando_menu(usuario_input: str) -> str:
     prompt = prepara_prompt()
 
     chain = cria_chain(prompt, verbose=True)
 
     # decide qual tabela de comandos usar
-    tabela = ""
-    if usuario_input.codigo_sistema == "EMPORIO":
-        tabela = TABELA_COMANDOS_EMPORIO_STR
-    else:
-        return "0"
+    tabela = TABELA_COMANDOS_EMPORIO_STR
 
     result = chain.invoke({"texto": usuario_input, "tabela": tabela})
     return result["text"]
