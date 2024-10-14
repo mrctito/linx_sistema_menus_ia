@@ -15,8 +15,6 @@ app = FastAPI()
 
 
 def teste():
-    prompt = prepara_prompt()
-    llm = cria_chain(prompt)
     while True:
         print("\n")
         texto_usuario = input("Digite o comando desejado: ")
@@ -25,6 +23,8 @@ def teste():
 
         usuario_input = UsuarioInput(
             codigo_sistema="EMPORIO", texto_usuario=texto_usuario)
+
+        # PRINCIPAL
         result = obtem_comando_menu(usuario_input)
         print(result)
 
@@ -54,10 +54,3 @@ def obtem_comando_menu(usuario_input: UsuarioInput) -> str:
 
 if __name__ == "__main__":
     teste()
-
-
-"""
-1- No programa principal, criar um campo de texto para o usuário digitar o comando desejado.
-2- Chamar a API que traduz o comando do usuario em um código de menu.
-3- Escrever um "case" ou "ifs aninhados" para cada código de menu, que chama a função do sistema correspondente.
-"""
